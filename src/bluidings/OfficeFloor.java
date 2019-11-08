@@ -78,4 +78,9 @@ public class OfficeFloor implements Floor {
     public int getSpaceCount() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setFlats(Flat[] newFloor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

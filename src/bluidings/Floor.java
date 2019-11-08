@@ -22,4 +22,6 @@ public interface Floor {
     public Space getBestSpace();  // получение лучшего помещения на этаже
     
     public int getSpaceCount(); // получение количества помещений на этаже
+
+    public void setFlats(Flat[] newFloor);
 }

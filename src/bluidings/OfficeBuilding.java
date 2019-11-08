@@ -19,7 +19,7 @@ public class OfficeBuilding implements Building{
         }
     }
 
-    public Floor[] getOfficeBuilding() { // Метод получения массива этажей офисного здания
+    public Floor[] getFloors() { // Метод получения массива этажей офисного здания
         Floor[] floor = new Floor[officeBuilding.getCount()];
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             floor[i] = officeBuilding.getNode(i).getValue();
@@ -31,7 +31,7 @@ public class OfficeBuilding implements Building{
         return officeBuilding.getNode(index).getValue();
     }
     
-    public int getSumOffices() { // Метод получения общего количества офисов здания
+    public int getSumSpaces() { // Метод получения общего количества офисов здания
         int SumOffices = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             SumOffices = SumOffices + getFloor(i).getSpaces().getCount();
@@ -59,7 +59,7 @@ public class OfficeBuilding implements Building{
         officeBuilding.getNode(index).setValue(newOfficeFloor);
     }
 
-    public Space getOffice(int index) { // Метод получения объекта офиса по его номеру в офисном здании
+    public Space getSpace(int index) { // Метод получения объекта офиса по его номеру в офисном здании
         int count = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();
@@ -74,11 +74,11 @@ public class OfficeBuilding implements Building{
     }
 
     public void setSpace(int index, Space newOffice) { // Метод изменения объекта офиса по его номеру в доме и ссылке на объект офиса
-        getOffice(index).setArea(newOffice.getArea());
-        getOffice(index).setRoomCount(newOffice.getRoomCount());
+        getSpace(index).setArea(newOffice.getArea());
+        getSpace(index).setRoomCount(newOffice.getRoomCount());
     }
     
-    public void insertSpace(int index, Space newOffice) { // Метод добавления офиса в здание по номеру офиса в здании и ссылке на объект офиса
+    public void insertAt(int index, Space newOffice) { // Метод добавления офиса в здание по номеру офиса в здании и ссылке на объект офиса
         int count = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();

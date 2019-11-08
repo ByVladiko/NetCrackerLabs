@@ -32,12 +32,12 @@ public class NetCrackerLab2 {
         System.out.println("Лучшие аппартаменты первого этажа имеют площадь: " + offFloor.getBestSpace().getArea());
         System.out.println("Лучшие аппартаменты здания имеют площадь: " + offBuild.getBestSpace().getArea());
         
-        System.out.println(offBuild.getOffice(0).getArea());
-        System.out.println(offBuild.getOffice(1).getArea());
-        System.out.println(offBuild.getOffice(2).getArea());
-        System.out.println(offBuild.getOffice(3).getArea());
-        System.out.println(offBuild.getOffice(4).getArea());
-        System.out.println(offBuild.getOffice(5).getArea());
-        System.out.println(offBuild.getOffice(6).getArea());
+        System.out.println(offBuild.getSpace(0).getArea());
+        System.out.println(offBuild.getSpace(1).getArea());
+        System.out.println(offBuild.getSpace(2).getArea());
+        System.out.println(offBuild.getSpace(3).getArea());
+        System.out.println(offBuild.getSpace(4).getArea());
+        System.out.println(offBuild.getSpace(5).getArea());
+        System.out.println(offBuild.getSpace(6).getArea());
     }
 }

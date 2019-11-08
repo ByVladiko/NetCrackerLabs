@@ -34,7 +34,7 @@ public class Dwelling implements Building {
         this.floors = floors;
     }
 
-    public int getFlatCount() { // Метод получения общего количества квартир дома
+    public int getSumSpaces() { // Метод получения общего количества квартир дома
         int SumFlats = 0;
         for (Floor floor : floors) {
             SumFlats = SumFlats + floor.getSpaceCount();
@@ -75,7 +75,7 @@ public class Dwelling implements Building {
         return 0;
     }
 
-    public Space getFlat(int numFlat) { // Метод получения квартиры, по её номеру в доме
+    public Space getSpace(int numFlat) { // Метод получения квартиры, по её номеру в доме
         int count = 0;
         for (Floor floor : floors) {
             Space[] floors = floor.getArrSpaces();
@@ -93,9 +93,9 @@ public class Dwelling implements Building {
         getFloors()[numFloor] = newFloor;
     }
 
-    public void setFlat(int flatNum, Flat newFlat) { // Метод изменения объекта квартиры по ее номеру в доме и ссылке на объект квартиры
-        getFlat(flatNum).setArea(newFlat.getArea());
-        getFlat(flatNum).setRoomCount(newFlat.getRoomCount());
+    public void setSpace(int flatNum, Space newFlat) { // Метод изменения объекта квартиры по ее номеру в доме и ссылке на объект квартиры
+        getSpace(flatNum).setArea(newFlat.getArea());
+        getSpace(flatNum).setRoomCount(newFlat.getRoomCount());
     }
     
     public int getIndexFlatOnFloor (int numFlat) { // Метод получения индекса квартиры на этаже по номеру квартиры
@@ -123,7 +123,7 @@ public class Dwelling implements Building {
         floors[floors.length - 1] = newFloor;
     }
 
-    public void addFlat(int numFlat, Space newFlat) { // Метод добавления квартиры в дом по будущему номеру квартиры в доме 
+    public void insertAt(int numFlat, Space newFlat) { // Метод добавления квартиры в дом по будущему номеру квартиры в доме 
     // (т.е. в параметрах указывается номер, который должны иметь квартира после вставки) и ссылке на объект квартиры 
     // (количество этажей в доме при этом не увеличивается)
     Floor floor = floors[getFloorOnFlat(numFlat)];
@@ -139,10 +139,7 @@ public class Dwelling implements Building {
         floors[getFloorOnFlat(numFlat)] = newFloor;
     }
 
-    public void delFlat(int numFlat) { //Метод удаления квартиры по ее номеру в доме
-        if (numFlat < 0 || numFlat >= getFlatCount()) {
-            return;
-        }
+    public void removeAt(int numFlat) { //Метод удаления квартиры по ее номеру в доме
         int numFloor = 0; //Номер этажа
         int temp = 0;
         for (int i = 0; i < getFloors().length; i++) {

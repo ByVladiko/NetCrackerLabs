@@ -1,21 +1,21 @@
 package bluidings;
 
 public interface Building {
-    public Floor[] getOfficeBuilding();
+    public Floor[] getFloors();
     
     public Floor getFloor(int index);
     
-    public int getSumOffices();
+    public int getSumSpaces();
     
     public double getSumArea();
     
     public int getSumRoomCount();
     
-    public Space getOffice(int index);
+    public Space getSpace(int index);
     
     public void setSpace(int index, Space newOffice) ;
     
-    public void insertSpace(int index, Space newOffice);
+    public void insertAt(int index, Space newOffice);
     
     public void removeAt(int index);
     
