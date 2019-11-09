@@ -1,4 +1,8 @@
-package bluidings;
+package bluidings.DwellingBuilding;
+
+import bluidings.Building;
+import bluidings.Floor;
+import bluidings.Space;
 
 public class Dwelling implements Building {
 
@@ -14,8 +18,7 @@ public class Dwelling implements Building {
 
     public Dwelling(Floor[] floors) { // Конструктор может принимать массив этажей дома.
         this.floors = floors;
-    }    
-    
+    }
 
     // Геттеры и сеттеры
     public int getNumFloor() {
@@ -32,6 +35,10 @@ public class Dwelling implements Building {
 
     public void setFloors(DwellingFloor[] floors) {
         this.floors = floors;
+    }
+    
+    public int getSumFloorCount(){
+        return floors.length;
     }
 
     public int getSumSpaces() { // Метод получения общего количества квартир дома
@@ -89,7 +96,7 @@ public class Dwelling implements Building {
         return null;
     }
 
-    public void setFloor(int numFloor, DwellingFloor newFloor) { // Метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
+    public void setFloor(int numFloor, Floor newFloor) { // Метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
         getFloors()[numFloor] = newFloor;
     }
 

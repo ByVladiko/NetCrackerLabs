@@ -1,5 +1,7 @@
-package bluidings;
+package bluidings.DwellingBuilding;
 
+import bluidings.Floor;
+import bluidings.Space;
 import utils.OneWayList.OneWayList;
 
 public class DwellingFloor implements Floor {

@@ -1,5 +1,8 @@
 package netcrackerlab2;
 
+import bluidings.Office.Office;
+import bluidings.Office.OfficeBuilding;
+import bluidings.Office.OfficeFloor;
 import bluidings.*;
 
 public class NetCrackerLab2 {

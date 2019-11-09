@@ -1,4 +1,6 @@
-package bluidings;
+package bluidings.DwellingBuilding;
+
+import bluidings.Space;
 
 public class Flat implements Space {
     public static final double AREA_CONST = 50;

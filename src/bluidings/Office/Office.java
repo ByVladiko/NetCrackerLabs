@@ -1,4 +1,6 @@
-package bluidings;
+package bluidings.Office;
+
+import bluidings.Space;
 
 public class Office implements Space {
     public static final double AREA_CONST = 250;

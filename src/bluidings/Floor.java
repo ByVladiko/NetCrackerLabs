@@ -1,5 +1,6 @@
 package bluidings;
 
+import bluidings.DwellingBuilding.Flat;
 import utils.OneWayList.OneWayList;
 
 public interface Floor {

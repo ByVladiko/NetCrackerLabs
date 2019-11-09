@@ -1,5 +1,10 @@
-package bluidings;
+package bluidings.Office;
 
+import bluidings.Building;
+import bluidings.Floor;
+import bluidings.FloorIndexOutOfBoundsException;
+import bluidings.Space;
+import bluidings.SpaceIndexOutOfBoundsException;
 import utils.TwoWayList.TwoWayList;
 
 public class OfficeBuilding implements Building {
@@ -134,4 +139,8 @@ public class OfficeBuilding implements Building {
         }
         return BestAreaOffice;
     } //check
+    
+    public int getSumFloorCount(){
+        return officeBuilding.getCount();
+    }
 }

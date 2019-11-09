@@ -20,4 +20,8 @@ public interface Building {
     public void removeAt(int index);
     
     public Space getBestSpace();
+    
+    public void setFloor(int index, Floor newOfficeFloor);
+    
+    public int getSumFloorCount();
 }
