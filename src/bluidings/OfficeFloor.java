@@ -11,10 +11,16 @@ public class OfficeFloor implements Floor {
     }
     
     public void removeAt(int index) {
+        if(index < 0 || index >= offices.getCount()) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         offices.removeAt(index);
     }
 
     public OfficeFloor(int countOffices) {  // Конструктор может принимать количество офисов на этаже
+        if(countOffices <= 0) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         offices = new OneWayList<>();
         for (int i = 0; i < countOffices; i++) {
             offices.add(new Office(0, 0));
@@ -59,7 +65,14 @@ public class OfficeFloor implements Floor {
         return SumRoomCount;
     }
     
+    public int getSpaceCount() {
+        return offices.getCount();
+    }
+    
     public void setSpace(int numOffice, Space newOffice) { // Метод изменения офиса по его номеру на этаже и ссылке на обновленный офис
+        if(numOffice < 0 || numOffice >= getSpaceCount()) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         getSpace(numOffice).setArea(newOffice.getArea());
         getSpace(numOffice).setRoomCount(newOffice.getRoomCount());
     }
@@ -72,11 +85,6 @@ public class OfficeFloor implements Floor {
             }
         }
         return BestAreaOffice;
-    }
-
-    @Override
-    public int getSpaceCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

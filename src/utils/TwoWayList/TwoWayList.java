@@ -62,6 +62,7 @@ public class TwoWayList<T> {
             newItem.setNext(head);
             head = newItem;
             tail.setNext(head);
+            count++;
         } else if (index == count - 1) {
             add(item);
         } else {
@@ -69,6 +70,7 @@ public class TwoWayList<T> {
             newItem.setNext(getNode(index));
             getNode(index).setPrev(newItem);
             newItem.setPrev(getNode(index - 1));
+            count++;
         }
     }
 
@@ -82,14 +84,17 @@ public class TwoWayList<T> {
         }
         if (count == 1) {
             head = tail = null;
+            count--;
             return;
         }
         if(getNode(index)==head){
             tail.setNext(head.getNext());
             head.setPrev(tail);
             head.getNext().setPrev(head);
+            count--;
         }
         getNode(index-1).setNext(getNode(index).getNext());
         getNode(index).setPrev(getNode(index-1));
+        count--;
     }
 }

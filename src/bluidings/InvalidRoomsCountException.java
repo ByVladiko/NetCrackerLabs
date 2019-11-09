@@ -1,4 +1,4 @@
-package Exceptions;
+package bluidings;
 
 public class InvalidRoomsCountException extends IllegalArgumentException {
 

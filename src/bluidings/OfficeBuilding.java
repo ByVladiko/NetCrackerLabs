@@ -2,10 +2,13 @@ package bluidings;
 
 import utils.TwoWayList.TwoWayList;
 
-public class OfficeBuilding implements Building{
+public class OfficeBuilding implements Building {
     TwoWayList<Floor> officeBuilding;
 
     public OfficeBuilding(int countFloor, int[] countOffices) {  // Конструктор может принимать количество этажей и массив количества офисов по этажам
+        if(countFloor <= 0 || countFloor != countOffices.length){
+            throw new FloorIndexOutOfBoundsException();
+        }
         TwoWayList<Floor> ListFloors = new TwoWayList<>();
         for (int i = 0; i < countFloor; i++) {
             ListFloors.add(new OfficeFloor(countOffices[i]));
@@ -13,6 +16,9 @@ public class OfficeBuilding implements Building{
     }
     
     public OfficeBuilding(Floor[] officeFloor) { // Конструктор может принимать массив этажей офисного здания
+        if(officeFloor.length == 0){
+            throw new FloorIndexOutOfBoundsException();
+        }
         this.officeBuilding = new TwoWayList<>();
         for (int i = 0; i < officeFloor.length; i++) {
             officeBuilding.add(officeFloor[i]);
@@ -28,6 +34,9 @@ public class OfficeBuilding implements Building{
     }
     
     public Floor getFloor(int index) { // Метод получения этажа офисного здания по номеру
+        if(index < 0 || index >= officeBuilding.getCount()) {
+            throw new FloorIndexOutOfBoundsException();
+        }
         return officeBuilding.getNode(index).getValue();
     }
     
@@ -56,6 +65,9 @@ public class OfficeBuilding implements Building{
     }
     
     public void setFloor(int index, Floor newOfficeFloor) { // Метод изменения этажа по его номеру в здании и ссылке на объект нового этаж
+        if(index < 0 || index >= officeBuilding.getCount()) {
+            throw new FloorIndexOutOfBoundsException();
+        }
         officeBuilding.getNode(index).setValue(newOfficeFloor);
     }
 
@@ -74,17 +86,23 @@ public class OfficeBuilding implements Building{
     }
 
     public void setSpace(int index, Space newOffice) { // Метод изменения объекта офиса по его номеру в доме и ссылке на объект офиса
+        if(index < 0 || index >= getSumSpaces()) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         getSpace(index).setArea(newOffice.getArea());
         getSpace(index).setRoomCount(newOffice.getRoomCount());
     }
     
     public void insertAt(int index, Space newOffice) { // Метод добавления офиса в здание по номеру офиса в здании и ссылке на объект офиса
+        if(index < 0 || index >= getSumSpaces()) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         int count = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();
             for (int j = 0; j < temp.getSpaces().getCount(); j++) {
                 if(index==count){
-                    temp.setSpace(j, newOffice);
+                    temp.getSpaces().insertAt(newOffice, j);
                 }
                 count++;
             }
@@ -92,6 +110,9 @@ public class OfficeBuilding implements Building{
     }
     
     public void removeAt(int index) { // Метод удаления офиса по его номеру в здании
+        if(index < 0 || index >= getSumSpaces()) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         int count = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();
