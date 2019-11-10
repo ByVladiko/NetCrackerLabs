@@ -92,7 +92,11 @@ public class OfficeFloor implements Floor {
     }
 
     @Override
-    public void setFlats(Flat[] newFloor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setArrSpaces(Space[] newFloor) {
+        OneWayList<Space> floor = new OneWayList<>();
+        for (int i = 0; i < newFloor.length; i++) {
+            floor.add(newFloor[i]);
+        }
+        setFloor(floor);
     }
 }

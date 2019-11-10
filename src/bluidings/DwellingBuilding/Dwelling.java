@@ -169,7 +169,7 @@ public class Dwelling implements Building {
             newFloor[count] = (Flat) getFloor(numFloor).getArrSpaces()[i];
             count++;
         }
-        floors[numFloor].setFlats(newFloor);
+        floors[numFloor].setArrSpaces(newFloor);
     }
 
     public Space getBestSpace() { // Метод получения самой большой по площади квартиры дома

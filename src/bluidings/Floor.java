@@ -24,5 +24,5 @@ public interface Floor {
     
     public int getSpaceCount(); // получение количества помещений на этаже
 
-    public void setFlats(Flat[] newFloor);
+    public void setArrSpaces(Space[] newFloor);
 }

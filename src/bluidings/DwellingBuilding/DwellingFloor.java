@@ -6,7 +6,7 @@ import utils.OneWayList.OneWayList;
 
 public class DwellingFloor implements Floor {
 
-    private Flat[] flats;
+    private Space[] flats;
 
     public DwellingFloor(int flatCount) { // Конструктор может принимать количество квартир на этаже
         this.flats = new Flat[flatCount];
@@ -24,7 +24,7 @@ public class DwellingFloor implements Floor {
         return flats;
     }
     
-    public void setFlats(Flat[] flats) {
+    public void setArrSpaces(Space[] flats) {
         this.flats = flats;
     }
     
@@ -60,16 +60,16 @@ public class DwellingFloor implements Floor {
         if (flatCount < flats.length) {
             return;
         }
-        Flat[] newFlats = new Flat[flats.length + (flatCount - flats.length + 1)];
+        Space[] newFlats = new Flat[flats.length + (flatCount - flats.length + 1)];
         for (int i = 0; i < flats.length; i++) {
             newFlats[i] = flats[i];
         }
         newFlats[flatCount] = (Flat) newFlat;
-        setFlats(newFlats);
+        setArrSpaces(newFlats);
     }
 
     public void removeAt(int flatCount) { // Метод удаления квартиры по ее номеру на этаже
-        Flat[] newFlats = new Flat[flats.length - 1];
+        Space[] newFlats = new Flat[flats.length - 1];
         int j = 0;
         for (int i = 0; i < flats.length; i++) {
             if (i == flatCount) {
@@ -78,12 +78,12 @@ public class DwellingFloor implements Floor {
             newFlats[i] = flats[j];
             j++;
         }
-        setFlats(newFlats);
+        setArrSpaces(newFlats);
     }
 
     public Space getBestSpace() { // Метод получения самой большой по площади квартиры этажа
-        Flat bestFlatSpace = null;
-        for (Flat flat : flats) {
+        Space bestFlatSpace = null;
+        for (Space flat : flats) {
             if (flat.getArea() > bestFlatSpace.getArea()) {
                 bestFlatSpace = flat;
             }

@@ -3,6 +3,7 @@ package bluidings;
 import java.io.*;
 
 public class Buildings {
+    
     public static void outputBuilding (Building building, OutputStream out) throws IOException { // Запись данных о здании в байтовый поток 
         DataOutputStream dos = new DataOutputStream(out);
         dos.writeInt(building.getSumFloorCount());
@@ -18,7 +19,12 @@ public class Buildings {
     public static Building inputBuilding (InputStream in) throws IOException { //Чтение данных о здании из байтового потока 
         DataInputStream dis = new DataInputStream(in);
         Floor[] floors = new Floor[dis.readInt()];
-        
+        for (int i = 0; i < floors.length; i++) {
+            Space[] spaces = new Space[dis.readInt()];
+            for (int j = 0; j < spaces.length; j++) {
+                spaces[j] = new Space(dis.readInt(), dis.readDouble());
+            }
+        }
     }
     
     public static void writeBuilding (Building building, Writer out) { // Запись здания в символьный поток 
