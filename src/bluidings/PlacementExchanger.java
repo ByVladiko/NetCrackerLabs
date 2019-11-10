@@ -1,5 +1,10 @@
 package bluidings;
 
+import bluidings.Exceptions.IndexChangeableSpacesException;
+import bluidings.Interfaces.Floor;
+import bluidings.Interfaces.Building;
+import bluidings.Interfaces.Space;
+
 public class PlacementExchanger {
 
     /*

@@ -1,10 +1,10 @@
 package bluidings.Office;
 
-import bluidings.Building;
-import bluidings.Floor;
-import bluidings.FloorIndexOutOfBoundsException;
-import bluidings.Space;
-import bluidings.SpaceIndexOutOfBoundsException;
+import bluidings.Interfaces.Building;
+import bluidings.Interfaces.Floor;
+import bluidings.Exceptions.FloorIndexOutOfBoundsException;
+import bluidings.Interfaces.Space;
+import bluidings.Exceptions.SpaceIndexOutOfBoundsException;
 import utils.TwoWayList.TwoWayList;
 
 public class OfficeBuilding implements Building {

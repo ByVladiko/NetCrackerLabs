@@ -1,4 +1,4 @@
-package bluidings;
+package bluidings.Interfaces;
 
 import bluidings.DwellingBuilding.Flat;
 import utils.OneWayList.OneWayList;

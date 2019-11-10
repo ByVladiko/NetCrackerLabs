@@ -1,9 +1,9 @@
 package bluidings.Office;
 
 import bluidings.DwellingBuilding.Flat;
-import bluidings.Floor;
-import bluidings.Space;
-import bluidings.SpaceIndexOutOfBoundsException;
+import bluidings.Interfaces.Floor;
+import bluidings.Interfaces.Space;
+import bluidings.Exceptions.SpaceIndexOutOfBoundsException;
 import utils.OneWayList.OneWayList;
 
 public class OfficeFloor implements Floor {

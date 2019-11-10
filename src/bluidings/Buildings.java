@@ -1,5 +1,10 @@
 package bluidings;
 
+import bluidings.Interfaces.Floor;
+import bluidings.Interfaces.Building;
+import bluidings.Interfaces.Space;
+import bluidings.Office.Office;
+import bluidings.Office.OfficeBuilding;
 import java.io.*;
 
 public class Buildings {
@@ -14,6 +19,7 @@ public class Buildings {
                 dos.writeDouble(building.getFloor(i).getSpace(i).getArea());
             }
         }
+        dos.close();
     }
     
     public static Building inputBuilding (InputStream in) throws IOException { //Чтение данных о здании из байтового потока 
@@ -22,16 +28,35 @@ public class Buildings {
         for (int i = 0; i < floors.length; i++) {
             Space[] spaces = new Space[dis.readInt()];
             for (int j = 0; j < spaces.length; j++) {
-                spaces[j] = new Space(dis.readInt(), dis.readDouble());
+                spaces[j] = new Office(dis.readInt(), dis.readDouble());
             }
         }
+        dis.close();
+        return new OfficeBuilding(floors);
     }
     
     public static void writeBuilding (Building building, Writer out) { // Запись здания в символьный поток 
-        
+        PrintWriter pw = new PrintWriter(out);
+        pw.print(building.getSumFloorCount() + " ");
+        for (int i = 0; i < building.getSumFloorCount(); i++) {
+            pw.print(building.getFloor(i).getSpaceCount() + " ");
+            for (int j = 0; j < building.getFloor(i).getSpaceCount(); j++) {
+                pw.print(building.getFloor(i).getSpace(i).getRoomCount() + " ");
+                pw.print(building.getFloor(i).getSpace(i).getArea() + " ");
+            }
+        }
+        pw.close();
     }
     
-    public static Building readBuilding (Reader in) { // Чтение здания из символьного потока 
-        
+    public static Building readBuilding (Reader in) throws IOException { // Чтение здания из символьного потока 
+        StreamTokenizer st = new StreamTokenizer(in);
+        Floor[] floors = new Floor[st.nextToken()];
+        for (int i = 0; i < floors.length; i++) {
+            Space[] spaces = new Space[st.nextToken()];
+            for (int j = 0; j < spaces.length; j++) {
+                spaces[j] = new Office(st.nextToken(), st.nextToken());
+            }
+        }
+        return new OfficeBuilding(floors);
     }
 }

@@ -1,6 +1,6 @@
 package bluidings.DwellingBuilding;
 
-import bluidings.Space;
+import bluidings.Interfaces.Space;
 
 public class Flat implements Space {
     public static final double AREA_CONST = 50;
@@ -19,7 +19,7 @@ public class Flat implements Space {
         this.roomCount = ROOM_COUNT_CONST;
     }
     
-    public Flat(double area, int roomCount) {
+    public Flat(int roomCount, double area) {
         this.area = area;
         this.roomCount = roomCount;
     }

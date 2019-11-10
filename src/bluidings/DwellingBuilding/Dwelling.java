@@ -1,8 +1,8 @@
 package bluidings.DwellingBuilding;
 
-import bluidings.Building;
-import bluidings.Floor;
-import bluidings.Space;
+import bluidings.Interfaces.Building;
+import bluidings.Interfaces.Floor;
+import bluidings.Interfaces.Space;
 
 public class Dwelling implements Building {
 

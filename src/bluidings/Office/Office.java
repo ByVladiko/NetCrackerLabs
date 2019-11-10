@@ -1,6 +1,6 @@
 package bluidings.Office;
 
-import bluidings.Space;
+import bluidings.Interfaces.Space;
 
 public class Office implements Space {
     public static final double AREA_CONST = 250;
@@ -17,7 +17,7 @@ public class Office implements Space {
         this.roomCount = 1;
     }
 
-    public Office(double area, int roomCount) { // Конструктор может принимать площадь офиса и количество комнат
+    public Office(int roomCount, double area) { // Конструктор может принимать площадь офиса и количество комнат
         this.area = area;
         this.roomCount = roomCount;
     }

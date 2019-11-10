@@ -1,4 +1,4 @@
-package bluidings;
+package bluidings.Interfaces;
 
 public interface Space {
 

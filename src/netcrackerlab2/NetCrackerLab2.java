@@ -1,5 +1,8 @@
 package netcrackerlab2;
 
+import bluidings.Interfaces.Building;
+import bluidings.Interfaces.Floor;
+import bluidings.Interfaces.Space;
 import bluidings.Office.Office;
 import bluidings.Office.OfficeBuilding;
 import bluidings.Office.OfficeFloor;

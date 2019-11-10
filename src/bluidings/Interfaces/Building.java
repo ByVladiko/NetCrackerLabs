@@ -1,4 +1,4 @@
-package bluidings;
+package bluidings.Interfaces;
 
 public interface Building {
     public Floor[] getFloors();
