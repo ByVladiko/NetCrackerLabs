@@ -1,10 +1,10 @@
-package bluidings;
+package buildings;
 
-import bluidings.Interfaces.Floor;
-import bluidings.Interfaces.Building;
-import bluidings.Interfaces.Space;
-import bluidings.Office.Office;
-import bluidings.Office.OfficeBuilding;
+import buildings.Interfaces.Floor;
+import buildings.Interfaces.Building;
+import buildings.Interfaces.Space;
+import buildings.Office.Office;
+import buildings.Office.OfficeBuilding;
 import java.io.*;
 import java.util.Locale;
 
@@ -79,10 +79,9 @@ public class Buildings {
         for (int i = 0; i < building.getSumFloorCount(); i++) {
             pw.printf("%d ", building.getFloor(i).getSpaceCount());
             for (int j = 0; j < building.getFloor(i).getSpaceCount(); j++) {
-                pw.printf("%d ", building.getFloor(i).getSpace(i).getRoomCount());
-                pw.printf("%.2f ", building.getFloor(i).getSpace(i).getArea());
+                pw.printf("%d ", building.getFloor(i).getSpace(j).getRoomCount());
+                pw.printf("%.1f ", building.getFloor(i).getSpace(j).getArea());
             }
         }
-        pw.close();
     }
 }

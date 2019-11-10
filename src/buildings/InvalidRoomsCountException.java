@@ -1,4 +1,4 @@
-package bluidings;
+package buildings;
 
 public class InvalidRoomsCountException extends IllegalArgumentException {
 

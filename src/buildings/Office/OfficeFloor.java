@@ -1,9 +1,9 @@
-package bluidings.Office;
+package buildings.Office;
 
-import bluidings.DwellingBuilding.Flat;
-import bluidings.Interfaces.Floor;
-import bluidings.Interfaces.Space;
-import bluidings.SpaceIndexOutOfBoundsException;
+import buildings.DwellingBuilding.Flat;
+import buildings.Interfaces.Floor;
+import buildings.Interfaces.Space;
+import buildings.SpaceIndexOutOfBoundsException;
 import java.io.Serializable;
 import utils.OneWayList.OneWayList;
 

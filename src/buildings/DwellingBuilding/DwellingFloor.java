@@ -1,7 +1,7 @@
-package bluidings.DwellingBuilding;
+package buildings.DwellingBuilding;
 
-import bluidings.Interfaces.Floor;
-import bluidings.Interfaces.Space;
+import buildings.Interfaces.Floor;
+import buildings.Interfaces.Space;
 import utils.OneWayList.OneWayList;
 
 public class DwellingFloor implements Floor {

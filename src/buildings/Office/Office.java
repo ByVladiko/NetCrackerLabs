@@ -1,6 +1,6 @@
-package bluidings.Office;
+package buildings.Office;
 
-import bluidings.Interfaces.Space;
+import buildings.Interfaces.Space;
 import java.io.Serializable;
 
 public class Office implements Space, Serializable {

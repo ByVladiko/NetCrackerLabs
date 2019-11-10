@@ -1,6 +1,6 @@
-package bluidings.Interfaces;
+package buildings.Interfaces;
 
-import bluidings.DwellingBuilding.Flat;
+import buildings.DwellingBuilding.Flat;
 import utils.OneWayList.OneWayList;
 
 public interface Floor {

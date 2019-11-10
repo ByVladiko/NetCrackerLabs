@@ -1,8 +1,8 @@
-package bluidings;
+package buildings;
 
-import bluidings.Interfaces.Floor;
-import bluidings.Interfaces.Building;
-import bluidings.Interfaces.Space;
+import buildings.Interfaces.Floor;
+import buildings.Interfaces.Building;
+import buildings.Interfaces.Space;
 
 public class PlacementExchanger {
 
