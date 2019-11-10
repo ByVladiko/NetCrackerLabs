@@ -1,4 +1,4 @@
-package bluidings.Exceptions;
+package bluidings;
 
 public class InvalidSpaceAreaException extends IllegalArgumentException {
 

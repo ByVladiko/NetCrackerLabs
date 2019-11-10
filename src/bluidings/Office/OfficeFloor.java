@@ -3,10 +3,11 @@ package bluidings.Office;
 import bluidings.DwellingBuilding.Flat;
 import bluidings.Interfaces.Floor;
 import bluidings.Interfaces.Space;
-import bluidings.Exceptions.SpaceIndexOutOfBoundsException;
+import bluidings.SpaceIndexOutOfBoundsException;
+import java.io.Serializable;
 import utils.OneWayList.OneWayList;
 
-public class OfficeFloor implements Floor {
+public class OfficeFloor implements Floor, Serializable {
     private OneWayList<Space> offices;
 
     

@@ -1,8 +1,9 @@
 package bluidings.Office;
 
 import bluidings.Interfaces.Space;
+import java.io.Serializable;
 
-public class Office implements Space {
+public class Office implements Space, Serializable {
     public static final double AREA_CONST = 250;
     
     private double area;

@@ -1,4 +1,4 @@
-package bluidings.Exceptions;
+package bluidings;
 
 public class SpaceIndexOutOfBoundsException extends IndexOutOfBoundsException {
 

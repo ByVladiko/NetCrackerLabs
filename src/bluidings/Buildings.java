@@ -6,6 +6,7 @@ import bluidings.Interfaces.Space;
 import bluidings.Office.Office;
 import bluidings.Office.OfficeBuilding;
 import java.io.*;
+import java.util.Locale;
 
 public class Buildings {
     
@@ -58,5 +59,30 @@ public class Buildings {
             }
         }
         return new OfficeBuilding(floors);
+    }
+    
+    public static void serializeBuilding (Building building, OutputStream out) throws IOException { // Сериализация здания в байтовый поток
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(building);
+        oos.close();
+    }
+    
+    public static Building deserializeBuilding (InputStream in) throws IOException, ClassNotFoundException { // Десериализация здания из байтового потока
+        ObjectInputStream ois = new ObjectInputStream(in);
+        ois.close();
+        return (Building) ois.readObject();
+    }
+    
+    public static void writeBuildingFormat (Building building, Writer out) {
+        PrintWriter pw = new PrintWriter(out);
+        pw.printf("%d ", building.getSumFloorCount());
+        for (int i = 0; i < building.getSumFloorCount(); i++) {
+            pw.printf("%d ", building.getFloor(i).getSpaceCount());
+            for (int j = 0; j < building.getFloor(i).getSpaceCount(); j++) {
+                pw.printf("%d ", building.getFloor(i).getSpace(i).getRoomCount());
+                pw.printf("%.2f ", building.getFloor(i).getSpace(i).getArea());
+            }
+        }
+        pw.close();
     }
 }

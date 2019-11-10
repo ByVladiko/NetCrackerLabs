@@ -2,12 +2,13 @@ package bluidings.Office;
 
 import bluidings.Interfaces.Building;
 import bluidings.Interfaces.Floor;
-import bluidings.Exceptions.FloorIndexOutOfBoundsException;
+import bluidings.FloorIndexOutOfBoundsException;
 import bluidings.Interfaces.Space;
-import bluidings.Exceptions.SpaceIndexOutOfBoundsException;
+import bluidings.SpaceIndexOutOfBoundsException;
+import java.io.Serializable;
 import utils.TwoWayList.TwoWayList;
 
-public class OfficeBuilding implements Building {
+public class OfficeBuilding implements Building, Serializable {
     TwoWayList<Floor> officeBuilding;
 
     public OfficeBuilding(int countFloor, int[] countOffices) {  // Конструктор может принимать количество этажей и массив количества офисов по этажам
