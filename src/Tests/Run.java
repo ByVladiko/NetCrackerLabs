@@ -7,12 +7,18 @@ import buildings.Interfaces.Space;
 import buildings.Office.Office;
 import buildings.Office.OfficeBuilding;
 import buildings.Office.OfficeFloor;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Run {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 
         Space office = new Office(4, 25);
         Space office2 = new Office(5, 10);
@@ -48,16 +54,26 @@ public class Run {
         System.out.println(offBuild.getSpace(5).getArea());
         System.out.println(offBuild.getSpace(6).getArea());
 
-        OutputStreamWriter out = new OutputStreamWriter(System.out);
-        Buildings.writeBuildingFormat(offBuild, out);
+        OutputStreamWriter osw = new OutputStreamWriter(System.out);
+        Buildings.writeBuildingFormat(offBuild, osw);
         try {
-            out.write('\n');
-            out.flush();
+            osw.write('\n');
+            osw.flush();
         } catch (IOException ex) {
-            ex.getMessage();
+            Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         System.out.println(offFloor.toString());
         System.out.println(offBuild.toString());
+
+        FileOutputStream fos = new FileOutputStream("temp.out");
+        Buildings.serializeBuilding(offBuild, fos);
+
+        File file = new File("temp.out");
+        FileInputStream fis = new FileInputStream(file);
+
+        Building offBuildDeser = new OfficeBuilding(Buildings.deserializeBuilding(fis).getFloors());
+
+        System.out.println("Сериализованный: " + offBuildDeser.toString());
     }
 }
