@@ -1,4 +1,4 @@
-package netcrackerlab2;
+package Tests;
 
 import buildings.Buildings;
 import buildings.Interfaces.Building;
@@ -10,7 +10,7 @@ import buildings.Office.OfficeFloor;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class NetCrackerLab2 {
+public class Run {
 
     public static void main(String[] args) {
 
