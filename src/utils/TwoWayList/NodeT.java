@@ -1,6 +1,8 @@
 package utils.TwoWayList;
 
-public class NodeT<T> {
+import java.io.Serializable;
+
+public class NodeT<T> implements Serializable {
 
     private NodeT<T> prev;
     private NodeT<T> next;

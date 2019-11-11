@@ -2,6 +2,8 @@ package buildings.Office;
 
 import buildings.Interfaces.Space;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Office implements Space, Serializable {
 
@@ -69,7 +71,7 @@ public class Office implements Space, Serializable {
         try {
             result = super.clone();
         } catch (CloneNotSupportedException ex) {
-            ex.getMessage();
+            Logger.getLogger(Office.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

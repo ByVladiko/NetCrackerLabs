@@ -136,16 +136,17 @@ public class OfficeFloor implements Floor, Serializable {
         }
         return result;
     }
-    
+
     public Object clone() {
-        Floor result = null;
+        OfficeFloor result = null;
         try {
-            result = (Floor) super.clone();
+            result = (OfficeFloor) super.clone();
+            // new head
         } catch (CloneNotSupportedException ex) {
-            ex.getMessage();
+            Logger.getLogger(OfficeFloor.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (int i = 0; i < result.getSpaceCount(); i++) {
-            result.setSpace(i, (Space) result.getSpace(i).clone());
+            result.addSpace(i, (Space) result.getSpace(i).clone());
         }
         return result;
     }

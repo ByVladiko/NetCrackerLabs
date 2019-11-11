@@ -9,8 +9,8 @@ import java.io.*;
 import java.util.Locale;
 
 public class Buildings {
-    
-    public static void outputBuilding (Building building, OutputStream out) throws IOException { // Запись данных о здании в байтовый поток 
+
+    public static void outputBuilding(Building building, OutputStream out) throws IOException { // Запись данных о здании в байтовый поток 
         DataOutputStream dos = new DataOutputStream(out);
         dos.writeInt(building.getSumFloorCount());
         for (int i = 0; i < building.getSumFloorCount(); i++) {
@@ -20,10 +20,10 @@ public class Buildings {
                 dos.writeDouble(building.getFloor(i).getSpace(i).getArea());
             }
         }
-        dos.close();
+        //dos.close();
     }
-    
-    public static Building inputBuilding (InputStream in) throws IOException { //Чтение данных о здании из байтового потока 
+
+    public static Building inputBuilding(InputStream in) throws IOException { //Чтение данных о здании из байтового потока 
         DataInputStream dis = new DataInputStream(in);
         Floor[] floors = new Floor[dis.readInt()];
         for (int i = 0; i < floors.length; i++) {
@@ -32,11 +32,11 @@ public class Buildings {
                 spaces[j] = new Office(dis.readInt(), dis.readDouble());
             }
         }
-        dis.close();
+        //dis.close();
         return new OfficeBuilding(floors);
     }
-    
-    public static void writeBuilding (Building building, Writer out) { // Запись здания в символьный поток 
+
+    public static void writeBuilding(Building building, Writer out) { // Запись здания в символьный поток 
         PrintWriter pw = new PrintWriter(out);
         pw.print(building.getSumFloorCount() + " ");
         for (int i = 0; i < building.getSumFloorCount(); i++) {
@@ -46,10 +46,10 @@ public class Buildings {
                 pw.print(building.getFloor(i).getSpace(i).getArea() + " ");
             }
         }
-        pw.close();
+        //pw.close();
     }
-    
-    public static Building readBuilding (Reader in) throws IOException { // Чтение здания из символьного потока 
+
+    public static Building readBuilding(Reader in) throws IOException { // Чтение здания из символьного потока 
         StreamTokenizer st = new StreamTokenizer(in);
         Floor[] floors = new Floor[st.nextToken()];
         for (int i = 0; i < floors.length; i++) {
@@ -60,20 +60,19 @@ public class Buildings {
         }
         return new OfficeBuilding(floors);
     }
-    
-    public static void serializeBuilding (Building building, OutputStream out) throws IOException { // Сериализация здания в байтовый поток
+
+    public static void serializeBuilding(Building building, OutputStream out) throws IOException { // Сериализация здания в байтовый поток
         ObjectOutputStream oos = new ObjectOutputStream(out);
         oos.writeObject(building);
-        oos.close();
+        //oos.close();
     }
-    
-    public static Building deserializeBuilding (InputStream in) throws IOException, ClassNotFoundException { // Десериализация здания из байтового потока
+
+    public static Building deserializeBuilding(InputStream in) throws IOException, ClassNotFoundException { // Десериализация здания из байтового потока
         ObjectInputStream ois = new ObjectInputStream(in);
-        ois.close();
         return (Building) ois.readObject();
     }
-    
-    public static void writeBuildingFormat (Building building, Writer out) {
+
+    public static void writeBuildingFormat(Building building, Writer out) {
         PrintWriter pw = new PrintWriter(out);
         pw.printf("%d ", building.getSumFloorCount());
         for (int i = 0; i < building.getSumFloorCount(); i++) {

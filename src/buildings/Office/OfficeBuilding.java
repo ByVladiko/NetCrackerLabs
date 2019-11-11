@@ -180,18 +180,19 @@ public class OfficeBuilding implements Building, Serializable {
         }
         return result;
     }
-    
+
     public Object clone() {
         Building result = null;
         try {
             result = (Building) super.clone();
         } catch (CloneNotSupportedException ex) {
-            ex.getMessage();
+            Logger.getLogger(OfficeBuilding.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //head
         for (int i = 0; i < result.getSumFloorCount(); i++) {
             result.setFloor(i, (Floor) result.getFloor(i).clone());
             for (int j = 0; j < result.getFloor(i).getSpaceCount(); i++) {
-                result.getFloor(i).setSpace(j, (Space) result.getSpace(j).clone());
+                result.addFloor(i).setSpace(j, (Space) result.getSpace(j).clone());
             }
         }
         return result;

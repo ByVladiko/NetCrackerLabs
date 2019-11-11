@@ -1,6 +1,8 @@
 package utils.TwoWayList;
 
-public class TwoWayList<T> {
+import java.io.Serializable;
+
+public class TwoWayList<T> implements Serializable {
 
     private NodeT<T> head; //Первый элемент
     private NodeT<T> tail; //Последний элемент
@@ -15,7 +17,7 @@ public class TwoWayList<T> {
     public int getCount() { // Метод получения общего числа этажей
         return count;
     }
-    
+
     public void add(T item) {
         NodeT<T> newItem = new NodeT<>(item);
         add(newItem);
@@ -87,14 +89,14 @@ public class TwoWayList<T> {
             count--;
             return;
         }
-        if(getNode(index)==head){
+        if (getNode(index) == head) {
             tail.setNext(head.getNext());
             head.setPrev(tail);
             head.getNext().setPrev(head);
             count--;
         }
-        getNode(index-1).setNext(getNode(index).getNext());
-        getNode(index).setPrev(getNode(index-1));
+        getNode(index - 1).setNext(getNode(index).getNext());
+        getNode(index).setPrev(getNode(index - 1));
         count--;
     }
 }

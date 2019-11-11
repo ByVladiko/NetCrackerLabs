@@ -57,22 +57,22 @@ public class Flat implements Space {
         Flat space = (Flat) object;
         return area == space.getArea() && roomCount == space.getRoomCount();
     }
-    
+
     public int hashCode() {
         String binaryArea = Long.toBinaryString(Double.doubleToLongBits(area));
         String first4Bytes = binaryArea.substring(0, 31);
         String second4Bytes = binaryArea.substring(32);
         int k1 = Integer.parseInt(first4Bytes, 2);
         int k2 = Integer.parseInt(second4Bytes, 2);
-        return (roomCount ^ k1) ^ k2 ;
+        return (roomCount ^ k1) ^ k2;
     }
-    
+
     public Object clone() {
         Object result = null;
         try {
             result = super.clone();
         } catch (CloneNotSupportedException ex) {
-            ex.getMessage();
+            Logger.getLogger(Flat.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

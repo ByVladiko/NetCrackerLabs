@@ -62,16 +62,16 @@ public class DwellingFloor implements Floor {
         if (flatCount < flats.length) {
             return;
         }
-        Space[] newFlats = new Flat[flats.length + (flatCount - flats.length + 1)];
+        Space[] newFlats = new Space[flats.length + (flatCount - flats.length + 1)];
         for (int i = 0; i < flats.length; i++) {
             newFlats[i] = flats[i];
         }
-        newFlats[flatCount] = (Flat) newFlat;
+        newFlats[flatCount] = (Space) newFlat;
         setArrSpaces(newFlats);
     }
 
     public void removeAt(int flatCount) { // Метод удаления квартиры по ее номеру на этаже
-        Space[] newFlats = new Flat[flats.length - 1];
+        Space[] newFlats = new Space[flats.length - 1];
         int j = 0;
         for (int i = 0; i < flats.length; i++) {
             if (i == flatCount) {
@@ -129,14 +129,15 @@ public class DwellingFloor implements Floor {
         }
         return result;
     }
-    
-    public Object clone(){
-        Floor result = null;
+
+    public Object clone() {
+        DwellingFloor result = null;
         try {
-            result = (Floor) super.clone();
+            result = (DwellingFloor) super.clone();
         } catch (CloneNotSupportedException ex) {
-            ex.getMessage();
+            Logger.getLogger(DwellingFloor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        result.flats = flats.clone();
         for (int i = 0; i < result.getSpaceCount(); i++) {
             result.setSpace(i, (Space) result.getSpace(i).clone());
         }

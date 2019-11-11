@@ -279,14 +279,15 @@ public class Dwelling implements Building {
         }
         return result;
     }
-    
+
     public Object clone() {
-        Building result = null;
+        Dwelling result = null;
         try {
-            result = (Building) super.clone();
+            result = (Dwelling) super.clone();
         } catch (CloneNotSupportedException ex) {
-            ex.getMessage();
+            Logger.getLogger(Dwelling.class.getName()).log(Level.SEVERE, null, ex);
         }
+        result.floors = floors.clone();
         for (int i = 0; i < result.getSumFloorCount(); i++) {
             result.setFloor(i, (Floor) result.getFloor(i).clone());
             for (int j = 0; j < result.getFloor(i).getSpaceCount(); i++) {

@@ -1,6 +1,8 @@
 package utils.OneWayList;
 
-public class OneWayList<T>{
+import java.io.Serializable;
+
+public class OneWayList<T> implements Serializable {
 
     private Node<T> head; //Первый элемент
     private Node<T> tail; //Последний элемент
@@ -13,16 +15,15 @@ public class OneWayList<T>{
     public int getCount() {
         return count;
     }
-    
+
 //    public void setNode(int index, T item) {
 //        Node<T> newItem = new Node<>(item);
 //        getNode(index).setValue(item);
 //    }
-
     public void setCount(int count) {
         this.count = count;
     }
-    
+
     public void add(T item) {
         Node<T> newItem = new Node<>(item);
         add(newItem);
@@ -89,12 +90,12 @@ public class OneWayList<T>{
             count--;
             return;
         }
-        if(getNode(index)==head){
+        if (getNode(index) == head) {
             tail.setNext(head.getNext());
             count--;
             return;
         }
-        getNode(index-1).setNext(getNode(index).getNext());
+        getNode(index - 1).setNext(getNode(index).getNext());
         count--;
     }
 }
