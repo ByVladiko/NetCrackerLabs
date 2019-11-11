@@ -2,6 +2,8 @@ package buildings.DwellingBuilding;
 
 import buildings.Interfaces.Floor;
 import buildings.Interfaces.Space;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.OneWayList.OneWayList;
 
 public class DwellingFloor implements Floor {
@@ -23,11 +25,11 @@ public class DwellingFloor implements Floor {
     public Space[] getArrSpaces() { // Метод получения массива квартир этажа
         return flats;
     }
-    
+
     public void setArrSpaces(Space[] flats) {
         this.flats = flats;
     }
-    
+
     public int getSpaceCount() {
         return flats.length;
     }
@@ -94,5 +96,50 @@ public class DwellingFloor implements Floor {
     @Override
     public OneWayList<Space> getSpaces() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String toString() {
+        StringBuffer sb = new StringBuffer("DwellingFloor (" + getSpaceCount() + " ");
+        for (int i = 0; i < flats.length; i++) {
+            sb.append(flats[i].toString());
+        }
+        return sb.toString();
+    }
+
+    public boolean equals(Object object) {
+        if (object == this) {
+            return true;
+        }
+        if (!(object instanceof DwellingFloor)) {
+            return false;
+        }
+        DwellingFloor floor = (DwellingFloor) object;
+        for (int i = 0; i < floor.getSpaceCount(); i++) {
+            if (flats[i].equals(floor.getSpace(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int hashCode() {
+        int result = getSpaceCount();
+        for (Space space : flats) {
+            result = result ^ space.hashCode();
+        }
+        return result;
+    }
+    
+    public Object clone(){
+        Floor result = null;
+        try {
+            result = (Floor) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            ex.getMessage();
+        }
+        for (int i = 0; i < result.getSpaceCount(); i++) {
+            result.setSpace(i, (Space) result.getSpace(i).clone());
+        }
+        return result;
     }
 }

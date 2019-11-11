@@ -39,7 +39,7 @@ public class NetCrackerLab2 {
 
         System.out.println("Лучшие аппартаменты первого этажа имеют площадь: " + offFloor.getBestSpace().getArea());
         System.out.println("Лучшие аппартаменты здания имеют площадь: " + offBuild.getBestSpace().getArea());
-        
+
         System.out.println(offBuild.getSpace(0).getArea());
         System.out.println(offBuild.getSpace(1).getArea());
         System.out.println(offBuild.getSpace(2).getArea());
@@ -47,15 +47,17 @@ public class NetCrackerLab2 {
         System.out.println(offBuild.getSpace(4).getArea());
         System.out.println(offBuild.getSpace(5).getArea());
         System.out.println(offBuild.getSpace(6).getArea());
-        
 
-            OutputStreamWriter out = new OutputStreamWriter(System.out);
-            Buildings.writeBuildingFormat(offBuild, out);
+        OutputStreamWriter out = new OutputStreamWriter(System.out);
+        Buildings.writeBuildingFormat(offBuild, out);
         try {
             out.write('\n');
             out.flush();
         } catch (IOException ex) {
             ex.getMessage();
         }
+
+        System.out.println(offFloor.toString());
+        System.out.println(offBuild.toString());
     }
 }

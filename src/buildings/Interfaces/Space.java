@@ -9,4 +9,6 @@ public interface Space {
     public int getRoomCount();
     
     public void setRoomCount(int roomCount);
+    
+    public Object clone();
 }

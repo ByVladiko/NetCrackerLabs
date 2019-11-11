@@ -3,6 +3,8 @@ package buildings.DwellingBuilding;
 import buildings.Interfaces.Building;
 import buildings.Interfaces.Floor;
 import buildings.Interfaces.Space;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Dwelling implements Building {
 
@@ -28,7 +30,7 @@ public class Dwelling implements Building {
     public Floor[] getFloors() { // Метод получения массива этажей жилого дома
         return floors;
     }
-    
+
     public void setNumFloor(int numFloor) {
         this.numFloor = numFloor;
     }
@@ -36,8 +38,8 @@ public class Dwelling implements Building {
     public void setFloors(DwellingFloor[] floors) {
         this.floors = floors;
     }
-    
-    public int getSumFloorCount(){
+
+    public int getSumFloorCount() {
         return floors.length;
     }
 
@@ -68,15 +70,15 @@ public class Dwelling implements Building {
     public Floor getFloor(int numFloor) { // Метод получения объекта этажа, по его номеру в доме
         return getFloors()[numFloor];
     }
-    
+
     public int getFloorOnFlat(int numFlat) { // Метод получения индекса этажа по номеру квартиры в доме
         int count = 0;
         for (int i = 0; i < floors.length; i++) {
             Floor floor = floors[i];
             for (int j = 0; j < floors[i].getSpaceCount(); j++) {
-                if(count == numFlat) {
+                if (count == numFlat) {
                     return i;
-                }       
+                }
             }
         }
         return 0;
@@ -104,19 +106,19 @@ public class Dwelling implements Building {
         getSpace(flatNum).setArea(newFlat.getArea());
         getSpace(flatNum).setRoomCount(newFlat.getRoomCount());
     }
-    
-    public int getIndexFlatOnFloor (int numFlat) { // Метод получения индекса квартиры на этаже по номеру квартиры
+
+    public int getIndexFlatOnFloor(int numFlat) { // Метод получения индекса квартиры на этаже по номеру квартиры
         int count = 0;
         for (int i = 0; i < floors.length; i++) {
             for (int j = 0; j < floors[i].getSpaceCount(); j++) {
-                if(count == numFlat){
+                if (count == numFlat) {
                     return j;
-                }       
+                }
             }
         }
         return 0;
     }
-    
+
     public void addFlat(Flat newFlat) { // Метод добавления квартиры в дом на последний этаж
         Floor floor = floors[floors.length - 1];
         Floor newFloor = new DwellingFloor(floor.getSpaceCount() + 1);
@@ -131,12 +133,12 @@ public class Dwelling implements Building {
     }
 
     public void insertAt(int numFlat, Space newFlat) { // Метод добавления квартиры в дом по будущему номеру квартиры в доме 
-    // (т.е. в параметрах указывается номер, который должны иметь квартира после вставки) и ссылке на объект квартиры 
-    // (количество этажей в доме при этом не увеличивается)
-    Floor floor = floors[getFloorOnFlat(numFlat)];
-    Floor newFloor = new DwellingFloor(floor.getSpaceCount() + 1);
+        // (т.е. в параметрах указывается номер, который должны иметь квартира после вставки) и ссылке на объект квартиры 
+        // (количество этажей в доме при этом не увеличивается)
+        Floor floor = floors[getFloorOnFlat(numFlat)];
+        Floor newFloor = new DwellingFloor(floor.getSpaceCount() + 1);
         for (int i = 0, j = 0; i < newFloor.getSpaceCount(); i++) {
-            if(i == getIndexFlatOnFloor(numFlat)){
+            if (i == getIndexFlatOnFloor(numFlat)) {
                 newFloor.getArrSpaces()[i] = newFlat;
                 continue;
             }
@@ -184,7 +186,7 @@ public class Dwelling implements Building {
         }
         return bestFlatSpace;
     }
-    
+
     public static void quickSort(Space[] array, int low, int high) { // Быстрая сортировка
         if (array.length == 0) {
             return;//завершить выполнение если длина массива равна 0
@@ -243,5 +245,54 @@ public class Dwelling implements Building {
         }
         quickSort(arr, 0, arr.length - 1);
         return arr;
+    }
+
+    public String toString() {
+        StringBuffer sb = new StringBuffer("OfficeBuilding (" + floors.length + ", ");
+        for (int i = 0; i < floors.length; i++) {
+            sb.append(floors[i].toString());
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+
+    public boolean equals(Object object) {
+        if (object == this) {
+            return true;
+        }
+        if (!(object instanceof Dwelling)) {
+            return false;
+        }
+        Dwelling building = (Dwelling) object;
+        for (int i = 0; i < floors.length; i++) {
+            if (floors[i].equals(building.getFloor(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int hashCode() {
+        int result = getSumFloorCount();
+        for (Floor floor : floors) {
+            result = result ^ floor.hashCode();
+        }
+        return result;
+    }
+    
+    public Object clone() {
+        Building result = null;
+        try {
+            result = (Building) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            ex.getMessage();
+        }
+        for (int i = 0; i < result.getSumFloorCount(); i++) {
+            result.setFloor(i, (Floor) result.getFloor(i).clone());
+            for (int j = 0; j < result.getFloor(i).getSpaceCount(); i++) {
+                result.getFloor(i).setSpace(j, (Space) result.getSpace(j).clone());
+            }
+        }
+        return result;
     }
 }

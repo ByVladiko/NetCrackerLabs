@@ -24,4 +24,6 @@ public interface Building {
     public void setFloor(int index, Floor newOfficeFloor);
     
     public int getSumFloorCount();
+    
+    public Object clone();
 }

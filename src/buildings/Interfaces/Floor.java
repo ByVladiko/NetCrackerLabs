@@ -25,4 +25,6 @@ public interface Floor {
     public int getSpaceCount(); // получение количества помещений на этаже
 
     public void setArrSpaces(Space[] newFloor);
+    
+    public Object clone();
 }

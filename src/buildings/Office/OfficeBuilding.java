@@ -6,13 +6,16 @@ import buildings.FloorIndexOutOfBoundsException;
 import buildings.Interfaces.Space;
 import buildings.SpaceIndexOutOfBoundsException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.TwoWayList.TwoWayList;
 
 public class OfficeBuilding implements Building, Serializable {
+
     TwoWayList<Floor> officeBuilding;
 
     public OfficeBuilding(int countFloor, int[] countOffices) {  // Конструктор может принимать количество этажей и массив количества офисов по этажам
-        if(countFloor <= 0 || countFloor != countOffices.length){
+        if (countFloor <= 0 || countFloor != countOffices.length) {
             throw new FloorIndexOutOfBoundsException();
         }
         TwoWayList<Floor> ListFloors = new TwoWayList<>();
@@ -20,9 +23,9 @@ public class OfficeBuilding implements Building, Serializable {
             ListFloors.add(new OfficeFloor(countOffices[i]));
         }
     }
-    
+
     public OfficeBuilding(Floor[] officeFloor) { // Конструктор может принимать массив этажей офисного здания
-        if(officeFloor.length == 0){
+        if (officeFloor.length == 0) {
             throw new FloorIndexOutOfBoundsException();
         }
         this.officeBuilding = new TwoWayList<>();
@@ -38,14 +41,14 @@ public class OfficeBuilding implements Building, Serializable {
         }
         return floor;
     }
-    
+
     public Floor getFloor(int index) { // Метод получения этажа офисного здания по номеру
-        if(index < 0 || index >= officeBuilding.getCount()) {
+        if (index < 0 || index >= officeBuilding.getCount()) {
             throw new FloorIndexOutOfBoundsException();
         }
         return officeBuilding.getNode(index).getValue();
     }
-    
+
     public int getSumSpaces() { // Метод получения общего количества офисов здания
         int SumOffices = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
@@ -69,9 +72,9 @@ public class OfficeBuilding implements Building, Serializable {
         }
         return SumRoomCount;
     }
-    
+
     public void setFloor(int index, Floor newOfficeFloor) { // Метод изменения этажа по его номеру в здании и ссылке на объект нового этаж
-        if(index < 0 || index >= officeBuilding.getCount()) {
+        if (index < 0 || index >= officeBuilding.getCount()) {
             throw new FloorIndexOutOfBoundsException();
         }
         officeBuilding.getNode(index).setValue(newOfficeFloor);
@@ -82,7 +85,7 @@ public class OfficeBuilding implements Building, Serializable {
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();
             for (int j = 0; j < temp.getSpaces().getCount(); j++) {
-                if(index==count){
+                if (index == count) {
                     return temp.getSpace(j);
                 }
                 count++;
@@ -92,38 +95,38 @@ public class OfficeBuilding implements Building, Serializable {
     }
 
     public void setSpace(int index, Space newOffice) { // Метод изменения объекта офиса по его номеру в доме и ссылке на объект офиса
-        if(index < 0 || index >= getSumSpaces()) {
+        if (index < 0 || index >= getSumSpaces()) {
             throw new SpaceIndexOutOfBoundsException();
         }
         getSpace(index).setArea(newOffice.getArea());
         getSpace(index).setRoomCount(newOffice.getRoomCount());
     }
-    
+
     public void insertAt(int index, Space newOffice) { // Метод добавления офиса в здание по номеру офиса в здании и ссылке на объект офиса
-        if(index < 0 || index >= getSumSpaces()) {
+        if (index < 0 || index >= getSumSpaces()) {
             throw new SpaceIndexOutOfBoundsException();
         }
         int count = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();
             for (int j = 0; j < temp.getSpaces().getCount(); j++) {
-                if(index==count){
+                if (index == count) {
                     temp.getSpaces().insertAt(newOffice, j);
                 }
                 count++;
             }
         }
     }
-    
+
     public void removeAt(int index) { // Метод удаления офиса по его номеру в здании
-        if(index < 0 || index >= getSumSpaces()) {
+        if (index < 0 || index >= getSumSpaces()) {
             throw new SpaceIndexOutOfBoundsException();
         }
         int count = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();
             for (int j = 0; j < temp.getSpaces().getCount(); j++) {
-                if(index==count){
+                if (index == count) {
                     temp.getSpaces().removeAt(j);
                 }
                 count++;
@@ -134,14 +137,63 @@ public class OfficeBuilding implements Building, Serializable {
     public Space getBestSpace() { // Метод получения самого большого по площади офиса здания
         Space BestAreaOffice = new Office(0);
         for (int i = 0; i < officeBuilding.getCount(); i++) {
-            if(officeBuilding.getNode(i).getValue().getBestSpace().getArea() > BestAreaOffice.getArea()) {
+            if (officeBuilding.getNode(i).getValue().getBestSpace().getArea() > BestAreaOffice.getArea()) {
                 BestAreaOffice = officeBuilding.getNode(i).getValue().getBestSpace();
             }
         }
         return BestAreaOffice;
     } //check
-    
-    public int getSumFloorCount(){
+
+    public int getSumFloorCount() {
         return officeBuilding.getCount();
+    }
+
+    public String toString() {
+        StringBuffer sb = new StringBuffer("OfficeBuilding (" + officeBuilding.getCount() + ", ");
+        for (int i = 0; i < officeBuilding.getCount(); i++) {
+            sb.append(getFloor(i).toString());
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+
+    public boolean equals(Object object) {
+        if (object == this) {
+            return true;
+        }
+        if (!(object instanceof OfficeBuilding)) {
+            return false;
+        }
+        OfficeBuilding building = (OfficeBuilding) object;
+        for (int i = 0; i < getSumFloorCount(); i++) {
+            if (getFloor(i).equals(building.getFloor(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int hashCode() {
+        int result = getSumFloorCount();
+        for (int i = 0; i < getSumFloorCount(); i++) {
+            result = result ^ getFloor(i).hashCode();
+        }
+        return result;
+    }
+    
+    public Object clone() {
+        Building result = null;
+        try {
+            result = (Building) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            ex.getMessage();
+        }
+        for (int i = 0; i < result.getSumFloorCount(); i++) {
+            result.setFloor(i, (Floor) result.getFloor(i).clone());
+            for (int j = 0; j < result.getFloor(i).getSpaceCount(); i++) {
+                result.getFloor(i).setSpace(j, (Space) result.getSpace(j).clone());
+            }
+        }
+        return result;
     }
 }
