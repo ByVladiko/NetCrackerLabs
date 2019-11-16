@@ -8,17 +8,19 @@ import java.util.logging.Logger;
 public class Office implements Space, Serializable {
 
     public static final double AREA_CONST = 250;
+    public static final int ROOM_COUNT_CONST = 3;
 
     private double area;
     private int roomCount;
 
     public Office() { // Конструктор по умолчанию
         this.area = AREA_CONST;
+        this.roomCount = ROOM_COUNT_CONST;
     }
 
     public Office(double area) { // Конструктор может принимать площадь офиса 
         this.area = area;
-        this.roomCount = 1;
+        this.roomCount = ROOM_COUNT_CONST;
     }
 
     public Office(int roomCount, double area) { // Конструктор может принимать площадь офиса и количество комнат

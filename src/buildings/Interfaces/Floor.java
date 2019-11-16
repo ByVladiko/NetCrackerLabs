@@ -1,30 +1,26 @@
 package buildings.Interfaces;
 
-import utils.OneWayList.OneWayList;
-
 public interface Floor {
 
-    public double getSumArea(); // получение общей площади помещений на этаже
+    public double getSumArea(); // Получение общей площади помещений на этаже
 
-    public Space getSpace(int numOffice); // получение помещения по его номеру
+    public Space getSpace(int numOffice); // Получение помещения по его номеру
 
-    public OneWayList<Space> getSpaces(); // Получение односвязного списка помещений этажа
+    public int getSumRoomCount(); // Получение количества комнат на этаже
 
-    public int getSumRoomCount(); //	получение количества комнат на этаже
+    public Space[] getArrSpaces(); // Получение массива всех помещений этажа
 
-    public Space[] getArrSpaces(); // получение массива всех помещений этажа
+    public void setSpace(int numOffice, Space newOffice); // Изменение помещения по его номеру и ссылке на новое помещение
 
-    public void setSpace(int numOffice, Space newOffice); // изменение помещения по его номеру и ссылке на новое помещение
-
-    // вставки помещения по его номеру и ссылке на новое помещение
+    public void insertAt(int numOffice, Space newOffice);// Вставка помещения по его номеру и ссылке на новое помещение
     
-    public void removeAt(int index);  // удаление помещения по его номеру,
+    public void removeAt(int index);  // Удаление помещения по его номеру,
 
-    public Space getBestSpace();  // получение лучшего помещения на этаже
+    public Space getBestSpace();  // Получение лучшего помещения на этаже
 
-    public int getSpaceCount(); // получение количества помещений на этаже
+    public int getSpaceCount(); // Получение количества помещений на этаже
 
-    public void setArrSpaces(Space[] newFloor);
+    public void setArrSpaces(Space[] newFloor); // Изменение этажа
 
-    public Object clone();
+    public Object clone(); // Клонирование этажа здания
 }

@@ -4,7 +4,6 @@ import buildings.Interfaces.Floor;
 import buildings.Interfaces.Space;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utils.OneWayList.OneWayList;
 
 public class DwellingFloor implements Floor {
 
@@ -58,7 +57,7 @@ public class DwellingFloor implements Floor {
         this.flats[flatCount] = (Flat) newFlat;
     }
 
-    public void addFlat(int flatCount, Space newFlat) { // Метод добавления новой квартиры на этаже по будущему номеру квартиры
+    public void insertAt(int flatCount, Space newFlat) { // Метод добавления новой квартиры на этаже по будущему номеру квартиры
         if (flatCount < flats.length) {
             return;
         }
@@ -94,18 +93,15 @@ public class DwellingFloor implements Floor {
     }
 
     @Override
-    public OneWayList<Space> getSpaces() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public String toString() {
-        StringBuffer sb = new StringBuffer("DwellingFloor (" + getSpaceCount() + " ");
-        for (int i = 0; i < flats.length; i++) {
-            sb.append(flats[i].toString());
+        StringBuilder sb = new StringBuilder("DwellingFloor (" + getSpaceCount() + " ");
+        for (Space flat : flats) {
+            sb.append(flat.toString());
         }
         return sb.toString();
     }
 
+    @Override
     public boolean equals(Object object) {
         if (object == this) {
             return true;
@@ -122,6 +118,7 @@ public class DwellingFloor implements Floor {
         return true;
     }
 
+    @Override
     public int hashCode() {
         int result = getSpaceCount();
         for (Space space : flats) {
@@ -130,6 +127,7 @@ public class DwellingFloor implements Floor {
         return result;
     }
 
+    @Override
     public Object clone() {
         DwellingFloor result = null;
         try {

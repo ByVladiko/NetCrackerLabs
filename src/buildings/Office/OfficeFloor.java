@@ -1,6 +1,5 @@
 package buildings.Office;
 
-import buildings.DwellingBuilding.Flat;
 import buildings.Interfaces.Floor;
 import buildings.Interfaces.Space;
 import buildings.SpaceIndexOutOfBoundsException;
@@ -30,7 +29,7 @@ public class OfficeFloor implements Floor, Serializable {
         }
         offices = new OneWayList<>();
         for (int i = 0; i < countOffices; i++) {
-            offices.add(new Office(0, 0));
+            offices.add(new Office());
         }
     }
 
@@ -102,12 +101,16 @@ public class OfficeFloor implements Floor, Serializable {
         }
         setFloor(floor);
     }
+    
+    public void insertAt(int numOffice, Space newOffice) {
+        offices.insertAt(newOffice, numOffice);
+    }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer("OfficeFloor (" + getSpaceCount());
+        StringBuilder sb = new StringBuilder("OfficeFloor (" + getSpaceCount());
         for (int i = 0; i < offices.getCount(); i++) {
-            sb.append(", Flat (" + getSpace(i).getRoomCount() + ", ");
-            sb.append(getSpace(i).getArea() + ")");
+            sb.append(", Flat (").append(getSpace(i).getRoomCount()).append(", ");
+            sb.append(getSpace(i).getArea()).append(")");
         }
         sb.append(")");
         return sb.toString();
@@ -138,7 +141,7 @@ public class OfficeFloor implements Floor, Serializable {
     }
 
     public Object clone() {
-        OfficeFloor result = null;
+        OfficeFloor result = new OfficeFloor(this.getSpaceCount());
         try {
             result = (OfficeFloor) super.clone();
             // new head
@@ -146,7 +149,7 @@ public class OfficeFloor implements Floor, Serializable {
             Logger.getLogger(OfficeFloor.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (int i = 0; i < result.getSpaceCount(); i++) {
-            result.addSpace(i, (Space) result.getSpace(i).clone());
+            result.setSpace(i, (Space) result.getSpace(i).clone());
         }
         return result;
     }

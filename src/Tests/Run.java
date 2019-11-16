@@ -32,7 +32,7 @@ public class Run {
         offFloor.setSpace(1, office2);
 
         Floor offFloor2 = new OfficeFloor(2);
-        offFloor2.getSpaces().add(office3); // Добавляется еще один элемент и присваивается значение оффис3
+        offFloor2.setSpace(0, office3); // Добавляется еще один элемент и присваивается значение оффис3
         offFloor2.setSpace(1, office4);
 
         Floor offFloor3 = new OfficeFloor(2);

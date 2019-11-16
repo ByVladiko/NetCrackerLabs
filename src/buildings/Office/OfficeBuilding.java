@@ -52,7 +52,7 @@ public class OfficeBuilding implements Building, Serializable {
     public int getSumSpaces() { // Метод получения общего количества офисов здания
         int SumOffices = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
-            SumOffices = SumOffices + getFloor(i).getSpaces().getCount();
+            SumOffices = SumOffices + getFloor(i).getSpaceCount();
         }
         return SumOffices;
     }
@@ -82,9 +82,9 @@ public class OfficeBuilding implements Building, Serializable {
 
     public Space getSpace(int index) { // Метод получения объекта офиса по его номеру в офисном здании
         int count = 0;
-        for (int i = 0; i < officeBuilding.getCount(); i++) {
-            Floor temp = officeBuilding.getNode(i).getValue();
-            for (int j = 0; j < temp.getSpaces().getCount(); j++) {
+        for (int i = 0; i < this.getFloors().length; i++) {
+            Floor temp = this.getFloor(index);
+            for (int j = 0; j < temp.getArrSpaces().length; j++) {
                 if (index == count) {
                     return temp.getSpace(j);
                 }
@@ -109,9 +109,9 @@ public class OfficeBuilding implements Building, Serializable {
         int count = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();
-            for (int j = 0; j < temp.getSpaces().getCount(); j++) {
+            for (int j = 0; j < temp.getSpaceCount(); j++) {
                 if (index == count) {
-                    temp.getSpaces().insertAt(newOffice, j);
+                    temp.insertAt(j, newOffice);
                 }
                 count++;
             }
@@ -125,9 +125,9 @@ public class OfficeBuilding implements Building, Serializable {
         int count = 0;
         for (int i = 0; i < officeBuilding.getCount(); i++) {
             Floor temp = officeBuilding.getNode(i).getValue();
-            for (int j = 0; j < temp.getSpaces().getCount(); j++) {
+            for (int j = 0; j < temp.getSpaceCount(); j++) {
                 if (index == count) {
-                    temp.getSpaces().removeAt(j);
+                    temp.removeAt(index);
                 }
                 count++;
             }
@@ -182,19 +182,11 @@ public class OfficeBuilding implements Building, Serializable {
     }
 
     public Object clone() {
-        Building result = null;
-        try {
-            result = (Building) super.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(OfficeBuilding.class.getName()).log(Level.SEVERE, null, ex);
+        Floor[] floors = new Floor[getSumFloorCount()];
+        for (int i = 0; i < getSumFloorCount(); i++) {
+            floors[i] = (Floor) getFloor(i).clone();
         }
-        //head
-        for (int i = 0; i < result.getSumFloorCount(); i++) {
-            result.setFloor(i, (Floor) result.getFloor(i).clone());
-            for (int j = 0; j < result.getFloor(i).getSpaceCount(); i++) {
-                result.addFloor(i).setSpace(j, (Space) result.getSpace(j).clone());
-            }
-        }
+        OfficeBuilding result = new OfficeBuilding(floors);
         return result;
     }
 }
