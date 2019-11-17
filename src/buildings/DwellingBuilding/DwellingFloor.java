@@ -2,12 +2,14 @@ package buildings.DwellingBuilding;
 
 import buildings.Interfaces.Floor;
 import buildings.Interfaces.Space;
+import java.io.Serializable;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DwellingFloor implements Floor {
+public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<Floor> {
 
-    private Space[] flats;
+    protected Space[] flats;
 
     public DwellingFloor(int flatCount) { // Конструктор может принимать количество квартир на этаже
         this.flats = new Flat[flatCount];
@@ -16,7 +18,7 @@ public class DwellingFloor implements Floor {
         }
     }
 
-    public DwellingFloor(Flat[] flats) { // Конструктор может принимать массив квартир этажа
+    public DwellingFloor(Space[] flats) { // Конструктор может принимать массив квартир этажа
         this.flats = flats;
     }
 
@@ -140,5 +142,40 @@ public class DwellingFloor implements Floor {
             result.setSpace(i, (Space) result.getSpace(i).clone());
         }
         return result;
+    }
+
+    @Override
+    public int compareTo(Floor floor) {
+        return (int) (getSpaceCount() - floor.getSpaceCount());
+    }
+    
+    public Iterator iterator() {
+        return new FloorIterator(this);
+    }
+    
+    private class FloorIterator implements Iterator {
+
+        DwellingFloor floor;
+        
+        private int index;
+        
+        public FloorIterator(DwellingFloor floor)
+        {
+            this.floor = floor;
+            index = -1;
+        }
+        
+        @Override
+        public boolean hasNext() {
+            if(index < flats.length) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public Object next() {
+            return flats[index++];
+        }
     }
 }

@@ -1,10 +1,11 @@
 package buildings.DwellingBuilding;
 
 import buildings.Interfaces.Space;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Flat implements Space {
+public class Flat implements Space, Serializable, Cloneable {
 
     public static final double AREA_CONST = 50;
     public static final int ROOM_COUNT_CONST = 2;
@@ -43,10 +44,12 @@ public class Flat implements Space {
         this.roomCount = roomCount;
     }
 
+    @Override
     public String toString() {
         return String.format("Flat (%d, %.1f)", roomCount, area);
     }
 
+    @Override
     public boolean equals(Object object) {
         if (object == this) {
             return true;
@@ -58,6 +61,7 @@ public class Flat implements Space {
         return area == space.getArea() && roomCount == space.getRoomCount();
     }
 
+    @Override
     public int hashCode() {
         String binaryArea = Long.toBinaryString(Double.doubleToLongBits(area));
         String first4Bytes = binaryArea.substring(0, 31);
@@ -67,6 +71,7 @@ public class Flat implements Space {
         return (roomCount ^ k1) ^ k2;
     }
 
+    @Override
     public Object clone() {
         Object result = null;
         try {
@@ -75,5 +80,10 @@ public class Flat implements Space {
             Logger.getLogger(Flat.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    @Override
+    public int compareTo(Space flat) {
+        return (int) (getArea() - flat.getArea());
     }
 }

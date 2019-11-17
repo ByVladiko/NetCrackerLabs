@@ -1,15 +1,47 @@
 package buildings;
 
+import Factory.DwellingFactory;
 import buildings.Interfaces.Floor;
 import buildings.Interfaces.Building;
+import buildings.Interfaces.BuildingFactory;
 import buildings.Interfaces.Space;
 import buildings.Office.Office;
 import buildings.Office.OfficeBuilding;
 import java.io.*;
-import java.util.Locale;
+import java.util.Comparator;
 
 public class Buildings {
 
+    private static BuildingFactory factory = new DwellingFactory();
+    
+    public static void setBuildingFactory(BuildingFactory bf) {
+        factory = bf;
+    }
+    
+    public static Space createSpace(double area) {
+        return factory.createSpace(area);
+    }
+    
+    public static Space createSpace(int roomsCount, double area) {
+        return factory.createSpace(roomsCount, area);
+    }
+    
+    public static Floor createFloor(Space[] spaces) {
+        return factory.createFloor(spaces);
+    }
+    
+    public static Floor createFloor(int spaceCount) {
+        return factory.createFloor(spaceCount);
+    }
+    
+    public static Building createBuilding (Floor[] floors) {
+        return factory.createBuilding(floors);
+    }
+    
+    public static Building createBuilding (int floorsCount, int[] spacesCounts) {
+        return factory.createBuilding(floorsCount, spacesCounts);
+    }
+    
     public static void outputBuilding(Building building, OutputStream out) throws IOException { // Запись данных о здании в байтовый поток 
         DataOutputStream dos = new DataOutputStream(out);
         dos.writeInt(building.getSumFloorCount());
@@ -26,7 +58,7 @@ public class Buildings {
     public static Building inputBuilding(InputStream in) throws IOException { //Чтение данных о здании из байтового потока 
         DataInputStream dis = new DataInputStream(in);
         Floor[] floors = new Floor[dis.readInt()];
-        for (int i = 0; i < floors.length; i++) {
+        for (Floor floor : floors) {
             Space[] spaces = new Space[dis.readInt()];
             for (int j = 0; j < spaces.length; j++) {
                 spaces[j] = new Office(dis.readInt(), dis.readDouble());
@@ -52,7 +84,7 @@ public class Buildings {
     public static Building readBuilding(Reader in) throws IOException { // Чтение здания из символьного потока 
         StreamTokenizer st = new StreamTokenizer(in);
         Floor[] floors = new Floor[st.nextToken()];
-        for (int i = 0; i < floors.length; i++) {
+        for (Floor floor : floors) {
             Space[] spaces = new Space[st.nextToken()];
             for (int j = 0; j < spaces.length; j++) {
                 spaces[j] = new Office(st.nextToken(), st.nextToken());
@@ -81,6 +113,20 @@ public class Buildings {
                 pw.printf("%d ", building.getFloor(i).getSpace(j).getRoomCount());
                 pw.printf("%.1f ", building.getFloor(i).getSpace(j).getArea());
             }
+        }
+    }
+    
+    public static <T> void sort(T[] objects, Comparator<T> comparator) {
+        for (int i = 0; i < objects.length; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < objects.length; j++) {
+                if (comparator.compare(objects[j], objects[minIndex]) < 0) {
+                    minIndex = j;
+                }
+            }
+            T swapBuf = objects[i];
+            objects[i] = objects[minIndex];
+            objects[minIndex] = swapBuf;
         }
     }
 }

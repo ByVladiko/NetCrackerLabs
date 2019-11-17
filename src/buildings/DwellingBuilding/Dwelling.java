@@ -3,18 +3,20 @@ package buildings.DwellingBuilding;
 import buildings.Interfaces.Building;
 import buildings.Interfaces.Floor;
 import buildings.Interfaces.Space;
+import java.io.Serializable;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Dwelling implements Building {
+public class Dwelling implements Building, Serializable, Cloneable, Iterable<Floor> {
 
     private int numFloor;
-    private Floor[] floors;
+    protected Floor[] floors;
 
-    public Dwelling(int floorsAmount, int[] flatsAmount) {
-        this.floors = new DwellingFloor[floorsAmount];
-        for (int i = 0; i < floorsAmount; i++) {
-            this.floors[i] = new DwellingFloor(flatsAmount[i]);
+    public Dwelling(int floorsCount, int[] floors) {
+        this.floors = new DwellingFloor[floorsCount];
+        for (int i = 0; i < floorsCount; i++) {
+            this.floors[i] = new DwellingFloor(floors[i]);
         }
     }
 
@@ -74,7 +76,6 @@ public class Dwelling implements Building {
     public int getFloorOnFlat(int numFlat) { // Метод получения индекса этажа по номеру квартиры в доме
         int count = 0;
         for (int i = 0; i < floors.length; i++) {
-            Floor floor = floors[i];
             for (int j = 0; j < floors[i].getSpaceCount(); j++) {
                 if (count == numFlat) {
                     return i;
@@ -295,5 +296,32 @@ public class Dwelling implements Building {
             }
         }
         return result;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new BuildingIterator(this);
+    }
+
+    private class BuildingIterator implements Iterator {
+
+        Dwelling building;
+
+        private int index;
+
+        public BuildingIterator(Dwelling building) {
+            this.building = building;
+            index = -1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < floors.length;
+        }
+
+        @Override
+        public Object next() {
+            return floors[index++];
+        }
     }
 }
