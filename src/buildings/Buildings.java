@@ -13,35 +13,35 @@ import java.util.Comparator;
 public class Buildings {
 
     private static BuildingFactory factory = new DwellingFactory();
-    
+
     public static void setBuildingFactory(BuildingFactory bf) {
         factory = bf;
     }
-    
+
     public static Space createSpace(double area) {
         return factory.createSpace(area);
     }
-    
+
     public static Space createSpace(int roomsCount, double area) {
         return factory.createSpace(roomsCount, area);
     }
-    
+
     public static Floor createFloor(Space[] spaces) {
         return factory.createFloor(spaces);
     }
-    
+
     public static Floor createFloor(int spaceCount) {
         return factory.createFloor(spaceCount);
     }
-    
-    public static Building createBuilding (Floor[] floors) {
+
+    public static Building createBuilding(Floor[] floors) {
         return factory.createBuilding(floors);
     }
-    
-    public static Building createBuilding (int floorsCount, int[] spacesCounts) {
+
+    public static Building createBuilding(int floorsCount, int[] spacesCounts) {
         return factory.createBuilding(floorsCount, spacesCounts);
     }
-    
+
     public static void outputBuilding(Building building, OutputStream out) throws IOException { // Запись данных о здании в байтовый поток 
         DataOutputStream dos = new DataOutputStream(out);
         dos.writeInt(building.getSumFloorCount());
@@ -115,12 +115,26 @@ public class Buildings {
             }
         }
     }
-    
+
     public static <T> void sort(T[] objects, Comparator<T> comparator) {
         for (int i = 0; i < objects.length; i++) {
             int minIndex = i;
             for (int j = i + 1; j < objects.length; j++) {
                 if (comparator.compare(objects[j], objects[minIndex]) < 0) {
+                    minIndex = j;
+                }
+            }
+            T swapBuf = objects[i];
+            objects[i] = objects[minIndex];
+            objects[minIndex] = swapBuf;
+        }
+    }
+
+    public static <T extends Comparable<T>> void sort(T[] objects) {
+        for (int i = 0; i < objects.length; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < objects.length; j++) {
+                if (objects[j].compareTo(objects[minIndex]) < 0) {
                     minIndex = j;
                 }
             }

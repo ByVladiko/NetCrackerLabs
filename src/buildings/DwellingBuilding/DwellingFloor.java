@@ -146,7 +146,13 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<F
 
     @Override
     public int compareTo(Floor floor) {
-        return (int) (getSpaceCount() - floor.getSpaceCount());
+        if(getSpaceCount() < floor.getSpaceCount()) {
+            return -1;
+        }
+        if(getSpaceCount() > floor.getSpaceCount()) {
+            return 1;
+        }
+        return 0;
     }
     
     public Iterator iterator() {
