@@ -2,7 +2,8 @@ package buildings.threads;
 
 import buildings.Interfaces.Floor;
 
-public class Repairer extends Thread  {
+public class Repairer extends Thread {
+
     private Floor floor;
 
     public Repairer(Floor floor) {
@@ -11,13 +12,15 @@ public class Repairer extends Thread  {
 
     @Override
     public void run() {
-        for (int i = 0; i < floor.getArrSpaces().length; i++) {
-            if (isInterrupted()) {
-                System.out.println("Repairer has interrupted");
-                return;
-            }
-            System.out.println("Repairing room number " + i + " with total area " + floor.getSpace(i).getArea() + " square meters");
+        int i = 0;
+        while (i < floor.getArrSpaces().length && !isInterrupted()) {
+            Service.repair(i, floor.getSpace(i).getArea());
+            i++;
         }
-        System.out.println("Repairer has finished");
+        if (isInterrupted()) {
+            System.out.println("Repairer has interrupted");
+        } else {
+            System.out.println("Repairer has finished");
+        }
     }
 }

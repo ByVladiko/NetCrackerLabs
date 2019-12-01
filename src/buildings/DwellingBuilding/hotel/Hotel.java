@@ -80,4 +80,8 @@ public class Hotel extends Dwelling {
         }
         return result;
     }
+    
+    public String getType() {
+        return "Hotel";
+    }
 }

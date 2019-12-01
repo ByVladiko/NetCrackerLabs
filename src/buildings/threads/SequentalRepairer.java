@@ -1,24 +1,36 @@
 package buildings.threads;
 
 import buildings.Interfaces.Floor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SequentalRepairer implements Runnable {
 
-    private Floor floor;
     private MySemaphore semaphore;
+    private Floor floor;
 
-    public SequentalRepairer(Floor floor, MySemaphore semaphore) {
-        this.floor = floor;
+    public SequentalRepairer(MySemaphore semaphore, Floor floor) {
         this.semaphore = semaphore;
+        this.floor = floor;
     }
-    
+
     @Override
     public void run() {
-        int index = 0, spaceCount = floor.getSpaceCount();
-        while (!Thread.currentThread().isInterrupted() && index < spaceCount)
-        {
-            semaphore.action(index, floor.getSpace(index));
-            semaphore.setNeedCleaning(true);
+        synchronized (semaphore) {
+            for (int i = 0; i < floor.getSpaceCount(); i++) {
+                if (!semaphore.isNeedCleaning()) {
+                    try {
+                        semaphore.notify();
+                        Service.repair(i, floor.getSpace(i).getArea());
+                        semaphore.setNeedCleaning(true);
+                        semaphore.wait();
+                        semaphore.notify();
+                    } catch (InterruptedException ex) {
+                        System.out.println("Repairer has interrupted");
+                    }
+                }
+            }
         }
+        System.out.println("Repairer has finished");
     }
 }

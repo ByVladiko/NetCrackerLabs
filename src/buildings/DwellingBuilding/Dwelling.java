@@ -281,7 +281,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return result;
     }
 
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
         Dwelling result = null;
         try {
             result = (Dwelling) super.clone();
@@ -296,6 +296,10 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
             }
         }
         return result;
+    }
+    
+    public String getType() {
+        return "Dwelling";
     }
 
     @Override

@@ -74,8 +74,8 @@ public class Buildings {
         for (int i = 0; i < building.getSumFloorCount(); i++) {
             pw.print(building.getFloor(i).getSpaceCount() + " ");
             for (int j = 0; j < building.getFloor(i).getSpaceCount(); j++) {
-                pw.print(building.getFloor(i).getSpace(i).getRoomCount() + " ");
-                pw.print(building.getFloor(i).getSpace(i).getArea() + " ");
+                pw.print(building.getFloor(i).getSpace(j).getRoomCount() + " ");
+                pw.print(building.getFloor(i).getSpace(j).getArea() + " ");
             }
         }
         //pw.close();
@@ -114,6 +114,15 @@ public class Buildings {
                 pw.printf("%.1f ", building.getFloor(i).getSpace(j).getArea());
             }
         }
+    }
+    
+    public static void writeBuildingType(Building building, Writer out) {
+        PrintWriter pw = new PrintWriter(out);
+        pw.println(building.getType());
+    }
+    
+    public static Floor synchronizedFloor (Floor floor) {
+        return new SynchronizedFloor(floor);
     }
 
     public static <T> void sort(T[] objects, Comparator<T> comparator) {
