@@ -1,5 +1,6 @@
 package Tests;
 
+import Factory.DwellingFactory;
 import buildings.Buildings;
 import buildings.Interfaces.Building;
 import buildings.Interfaces.Floor;
@@ -8,19 +9,14 @@ import buildings.Office.Office;
 import buildings.Office.OfficeBuilding;
 import buildings.Office.OfficeFloor;
 import buildings.SpaceIndexOutOfBoundsException;
-import buildings.threads.Cleaner;
-import buildings.threads.MySemaphore;
-import buildings.threads.Repairer;
-import buildings.threads.SequentalCleaner;
-import buildings.threads.SequentalRepairer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,11 +31,29 @@ public class Run {
         Space office5 = new Office(3, 10.4);
         Space office6 = new Office(5, 5);
 
-        Floor offFloor = new OfficeFloor(2);
+        Floor offFloor = new OfficeFloor(22);
         offFloor.setSpace(0, office);
         offFloor.setSpace(1, office2);
-//        offFloor.setSpace(2, new Office(10, 15));
-//        offFloor.setSpace(3, new Office(33, 33));
+        offFloor.setSpace(2, new Office(6, 40.4));
+        offFloor.setSpace(3, new Office(6, 40.4));
+        offFloor.setSpace(4, new Office(6, 40.4));
+        offFloor.setSpace(5, new Office(6, 40.4));
+        offFloor.setSpace(6, new Office(6, 40.4));
+        offFloor.setSpace(7, new Office(6, 40.4));
+        offFloor.setSpace(8, new Office(6, 40.4));
+        offFloor.setSpace(9, new Office(6, 40.4));
+        offFloor.setSpace(10, new Office(6, 40.4));
+        offFloor.setSpace(11, new Office(6, 40.4));
+        offFloor.setSpace(12, new Office(6, 40.4));
+        offFloor.setSpace(13, new Office(6, 40.4));
+        offFloor.setSpace(14, new Office(6, 40.4));
+        offFloor.setSpace(15, new Office(6, 40.4));
+        offFloor.setSpace(16, new Office(6, 40.4));
+        offFloor.setSpace(17, new Office(6, 40.4));
+        offFloor.setSpace(18, new Office(6, 40.4));
+        offFloor.setSpace(19, new Office(6, 40.4));
+        offFloor.setSpace(20, new Office(6, 40.4));
+        offFloor.setSpace(21, new Office(6, 40.4));
 
         Floor offFloor2 = new OfficeFloor(2);
         offFloor2.setSpace(0, office3);
@@ -83,10 +97,18 @@ public class Run {
         FileOutputStream fos = new FileOutputStream("temp.out");
         Buildings.serializeBuilding(offBuild, fos);
         
-        FileWriter out = new FileWriter(new File("building.txt"));
-        Buildings.writeBuilding(offBuild, out);
-        out.flush();
-        out.close();
+        try (FileWriter out = new FileWriter(new File("building.txt"))) {
+            Buildings.writeBuilding(offBuild, out);
+            out.flush();
+        }
+        
+        System.out.println("");
+        
+        System.out.println("Чтение из файла:");
+        FileReader in = new FileReader(new File("D:\\Projects\\NetCrackerLab2\\building.txt"));
+        Buildings.setBuildingFactory(new DwellingFactory());
+        Building dwell = Buildings.readBuilding(in);
+        System.out.println(dwell.toString());
 
         File file = new File("temp.out");
         FileInputStream fis = new FileInputStream(file);
@@ -116,11 +138,11 @@ public class Run {
 
         System.out.println("--------------------------");
         
-        MySemaphore semaphor = new MySemaphore();
-        Thread t1 = new Thread(new SequentalRepairer(semaphor, offFloor));
-        Thread t2 = new Thread(new SequentalCleaner(semaphor, offFloor));
-
-        t1.start();
-        t2.start();
+//        MySemaphore semaphor = new MySemaphore();
+//        Thread t1 = new Thread(new SequentalRepairer(semaphor, offFloor));
+//        Thread t2 = new Thread(new SequentalCleaner(semaphor, offFloor));
+//
+//        t1.start();
+//        t2.start();
     }
 }
