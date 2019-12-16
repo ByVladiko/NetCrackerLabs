@@ -7,22 +7,11 @@ import buildings.BuildingUnderArrestException;
 import buildings.Buildings;
 import buildings.DwellingBuilding.Hotel.Hotel;
 import buildings.Interfaces.Building;
-import buildings.Interfaces.BuildingFactory;
-import buildings.Interfaces.Floor;
-import buildings.Interfaces.Space;
-import buildings.Office.Office;
 import buildings.Office.OfficeBuilding;
-import buildings.Office.OfficeFloor;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
@@ -47,14 +36,12 @@ public class BinaryServer {
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(8000);
-        try {
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client accepted");
-            try {
-                OutputStreamWriter writer = new OutputStreamWriter(clientSocket.getOutputStream());
-                writer.write("connected");
-                writer.flush();
-                writer.close();
+        try (OutputStreamWriter writer = new OutputStreamWriter(clientSocket.getOutputStream())) {
+            writer.write("connected");
+            writer.flush();
+        }
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 while (true) {
                     String type = reader.readLine();
@@ -76,7 +63,4 @@ public class BinaryServer {
 //            writer.write("java");
 //            writer.flush();
 //            writer.close();
-                clientSocket.close();
-            }
-        }
     }

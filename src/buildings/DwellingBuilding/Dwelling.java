@@ -29,6 +29,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return numFloor;
     }
 
+    @Override
     public Floor[] getFloors() { // Метод получения массива этажей жилого дома
         return floors;
     }
@@ -41,10 +42,12 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         this.floors = floors;
     }
 
+    @Override
     public int getSumFloorCount() {
         return floors.length;
     }
 
+    @Override
     public int getSumSpaces() { // Метод получения общего количества квартир дома
         int SumFlats = 0;
         for (Floor floor : floors) {
@@ -53,6 +56,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return SumFlats;
     }
 
+    @Override
     public double getSumArea() { // Метод получения общей площади квартир всего дома
         double SumArea = 0;
         for (Floor floor : floors) {
@@ -61,6 +65,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return SumArea;
     }
 
+    @Override
     public int getSumRoomCount() {  // Метод получения общего количества комнат дома
         int SumRoomCount = 0;
         for (Floor floor : floors) {
@@ -69,6 +74,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return SumRoomCount;
     }
 
+    @Override
     public Floor getFloor(int numFloor) { // Метод получения объекта этажа, по его номеру в доме
         return getFloors()[numFloor];
     }
@@ -85,6 +91,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return 0;
     }
 
+    @Override
     public Space getSpace(int numFlat) { // Метод получения квартиры, по её номеру в доме
         int count = 0;
         for (Floor floor : floors) {
@@ -99,10 +106,12 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return null;
     }
 
+    @Override
     public void setFloor(int numFloor, Floor newFloor) { // Метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
         getFloors()[numFloor] = newFloor;
     }
 
+    @Override
     public void setSpace(int flatNum, Space newFlat) { // Метод изменения объекта квартиры по ее номеру в доме и ссылке на объект квартиры
         getSpace(flatNum).setArea(newFlat.getArea());
         getSpace(flatNum).setRoomCount(newFlat.getRoomCount());
@@ -110,8 +119,8 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
 
     public int getIndexFlatOnFloor(int numFlat) { // Метод получения индекса квартиры на этаже по номеру квартиры
         int count = 0;
-        for (int i = 0; i < floors.length; i++) {
-            for (int j = 0; j < floors[i].getSpaceCount(); j++) {
+        for (Floor floor : floors) {
+            for (int j = 0; j < floor.getSpaceCount(); j++) {
                 if (count == numFlat) {
                     return j;
                 }
@@ -133,6 +142,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         floors[floors.length - 1] = newFloor;
     }
 
+    @Override
     public void insertAt(int numFlat, Space newFlat) { // Метод добавления квартиры в дом по будущему номеру квартиры в доме 
         // (т.е. в параметрах указывается номер, который должны иметь квартира после вставки) и ссылке на объект квартиры 
         // (количество этажей в доме при этом не увеличивается)
@@ -149,6 +159,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         floors[getFloorOnFlat(numFlat)] = newFloor;
     }
 
+    @Override
     public void removeAt(int numFlat) { //Метод удаления квартиры по ее номеру в доме
         int numFloor = 0; //Номер этажа
         int temp = 0;
@@ -175,6 +186,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         floors[numFloor].setArrSpaces(newFloor);
     }
 
+    @Override
     public Space getBestSpace() { // Метод получения самой большой по площади квартиры дома
         Space bestFlatSpace = null;
         for (Floor floor : floors) {
@@ -248,15 +260,17 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return arr;
     }
 
+    @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer("OfficeBuilding (" + floors.length + ", ");
-        for (int i = 0; i < floors.length; i++) {
-            sb.append(floors[i].toString());
+        StringBuilder sb = new StringBuilder("OfficeBuilding (" + floors.length + ", ");
+        for (Floor floor : floors) {
+            sb.append(floor.toString());
         }
         sb.append(")");
         return sb.toString();
     }
 
+    @Override
     public boolean equals(Object object) {
         if (object == this) {
             return true;
@@ -273,6 +287,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return true;
     }
 
+    @Override
     public int hashCode() {
         int result = getSumFloorCount();
         for (Floor floor : floors) {
@@ -281,6 +296,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return result;
     }
 
+    @Override
     public Object clone() throws CloneNotSupportedException {
         Dwelling result = null;
         try {
@@ -298,6 +314,7 @@ public class Dwelling implements Building, Serializable, Cloneable, Iterable<Flo
         return result;
     }
     
+    @Override
     public String getType() {
         return "Dwelling";
     }

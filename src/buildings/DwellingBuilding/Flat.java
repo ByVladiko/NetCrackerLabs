@@ -28,18 +28,22 @@ public class Flat implements Space, Serializable, Cloneable {
         this.roomCount = roomCount;
     }
 
+    @Override
     public double getArea() {
         return area;
     }
 
+    @Override
     public int getRoomCount() {
         return roomCount;
     }
 
+    @Override
     public void setArea(double area) {
         this.area = area;
     }
 
+    @Override
     public void setRoomCount(int roomCount) {
         this.roomCount = roomCount;
     }

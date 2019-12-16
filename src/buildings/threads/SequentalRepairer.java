@@ -1,8 +1,6 @@
 package buildings.threads;
 
 import buildings.Interfaces.Floor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SequentalRepairer implements Runnable {
 

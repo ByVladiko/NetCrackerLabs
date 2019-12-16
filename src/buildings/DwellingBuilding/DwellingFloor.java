@@ -23,18 +23,22 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<F
     }
 
     // Геттеры и сеттеры
+    @Override
     public Space[] getArrSpaces() { // Метод получения массива квартир этажа
         return flats;
     }
 
+    @Override
     public void setArrSpaces(Space[] flats) {
         this.flats = flats;
     }
 
+    @Override
     public int getSpaceCount() {
         return flats.length;
     }
 
+    @Override
     public double getSumArea() { // Метод получения общей площади квартир этажа
         double SumArea = 0;
         for (Space flat : flats) {
@@ -43,6 +47,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<F
         return SumArea;
     }
 
+    @Override
     public int getSumRoomCount() { // Метод получения общего количества комнат этажа
         int SumRoomCount = 0;
         for (Space flat : flats) {
@@ -51,14 +56,17 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<F
         return SumRoomCount;
     }
 
+    @Override
     public Space getSpace(int flatCount) { // Метод получения объекта квартиры по ее номеру на этаже
         return flats[flatCount];
     }
 
+    @Override
     public void setSpace(int flatCount, Space newFlat) { // Метод изменения квартиры по ее номеру на этаже и ссылке на новую квартиру
         this.flats[flatCount] = (Flat) newFlat;
     }
 
+    @Override
     public void insertAt(int flatCount, Space newFlat) { // Метод добавления новой квартиры на этаже по будущему номеру квартиры
         if (flatCount < flats.length) {
             return;
@@ -71,6 +79,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<F
         setArrSpaces(newFlats);
     }
 
+    @Override
     public void removeAt(int flatCount) { // Метод удаления квартиры по ее номеру на этаже
         Space[] newFlats = new Space[flats.length - 1];
         int j = 0;
@@ -84,6 +93,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<F
         setArrSpaces(newFlats);
     }
 
+    @Override
     public Space getBestSpace() { // Метод получения самой большой по площади квартиры этажа
         Space bestFlatSpace = null;
         for (Space flat : flats) {
@@ -130,7 +140,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<F
     }
 
     @Override
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
         DwellingFloor result = null;
         try {
             result = (DwellingFloor) super.clone();
@@ -155,6 +165,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<F
         return 0;
     }
     
+    @Override
     public Iterator iterator() {
         return new FloorIterator(this);
     }

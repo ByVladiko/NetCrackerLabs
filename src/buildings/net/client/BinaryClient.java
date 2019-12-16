@@ -7,20 +7,15 @@ import buildings.Interfaces.Space;
 import buildings.Office.Office;
 import buildings.Office.OfficeBuilding;
 import buildings.Office.OfficeFloor;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class BinaryClient {
 
@@ -64,12 +59,9 @@ public class BinaryClient {
         outType.flush();
         
         
-        Socket clientSocket = new Socket("localhost", 8000);
-        DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
-        DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
-        
-        
-        
-        clientSocket.close();
+        try (Socket clientSocket = new Socket("localhost", 8000)) {
+            DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
+            DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
+        }
     }
 }

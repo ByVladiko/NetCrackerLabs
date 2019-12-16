@@ -7,12 +7,6 @@ public class TwoWayList<T> implements Serializable {
     private NodeT<T> head; //Первый элемент
     private NodeT<T> tail; //Последний элемент
     private int count; //Число элементов
-
-//    public TwoWayList(int count) {
-//        head = tail;
-//        tail = head;
-//        this.count = count;
-//    }
     
     public int getCount() { // Метод получения общего числа этажей
         return count;
